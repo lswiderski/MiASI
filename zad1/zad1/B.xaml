@@ -1,0 +1,25 @@
+﻿<Window x:Class="zad1.B"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:sparrow="http://sparrowtoolkit.codeplex.com/wpf"
+        xmlns:zad1="clr-namespace:zad1"
+        Title="Dystrybuanta F(t)" Height="500" Width="700">
+    <Grid>
+        <sparrow:SparrowChart Theme="Rainbow" Margin="0,10,10,0">
+        <sparrow:SparrowChart.DataContext>
+            <zad1:MainWindow   />
+        </sparrow:SparrowChart.DataContext>
+        <sparrow:SparrowChart.XAxis>
+            <sparrow:LinearXAxis Header="t"/>
+        </sparrow:SparrowChart.XAxis>
+        <sparrow:SparrowChart.YAxis>
+            <sparrow:LinearYAxis Header="F(t)"/>
+        </sparrow:SparrowChart.YAxis>
+            <sparrow:SparrowChart.Legend>
+                <sparrow:Legend Header="Legenda"/>
+            </sparrow:SparrowChart.Legend>
+            <sparrow:LineSeries PointsSource="{Binding table2}" XPath="ID" YPath="X" Label="Lambda 2"/>
+            <sparrow:LineSeries PointsSource="{Binding table2}" XPath="ID" YPath="Y" Label="Lambda 10"/>
+        </sparrow:SparrowChart>
+    </Grid>
+</Window>

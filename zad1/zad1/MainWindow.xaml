@@ -1,0 +1,38 @@
+﻿<Window x:Class="zad1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Lukasz Swiderski Zad 1" Height="350" Width="525">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock  Grid.Row="0" Grid.ColumnSpan="2" TextWrapping="Wrap">
+             Zakładając, że strumień pakietów do routera jest strumieniem Poissona z parametrami:
+            Lambda =2 i Lambda=2. Obliczyć i narysować histogramy prawdopodobieństwa przybycia w ciągu sekundy k= 0,1,2,...,20
+            pakietów oraz wykresy dystrybuanty dla t=0.1,0.2,...,1.5 tj. prawdopodobieństwo, że odstęp między pakietami jest mniejszy lub równy t
+        </TextBlock>
+
+        <Button Grid.Column="0" Grid.Row="1" Content="Pokaz histogramy" Click="Button_Click" Margin="10,10,10,10"/>
+        <Button Grid.Column="1" Grid.Row="1" Content="Pokaz wykresy dystrybuanty" Click="Button_Click_1" Margin="10,10,10,10"/>
+        <DataGrid Name="DataGrid1" Grid.Row="2" Grid.Column="0" ItemsSource="{Binding}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="kID"  Binding="{Binding ID  }" Header="K" ></DataGridTextColumn>
+                <DataGridTextColumn x:Name="kLambda2" Binding="{Binding X}" Header="Lambda 2" ></DataGridTextColumn>
+                <DataGridTextColumn x:Name="kLmbda10" Binding="{Binding Y}" Header="Lambda 10" ></DataGridTextColumn>
+            </DataGrid.Columns>
+            </DataGrid>
+        <DataGrid Name="DataGrid2" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="tID"  Binding="{Binding ID, StringFormat=N1}" Header="t" ></DataGridTextColumn>
+                <DataGridTextColumn x:Name="tLambda2" Binding="{Binding X}" Header="Lambda 2" ></DataGridTextColumn>
+                <DataGridTextColumn x:Name="tLmbda10" Binding="{Binding Y}" Header="Lambda 10" ></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
