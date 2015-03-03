@@ -20,12 +20,13 @@ namespace zad2
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<Data> datas;
+        public List<Data> datas { get; set; }
         public MainWindow()
         {
             datas = new List<Data>();
-            InitializeComponent();
             fillData();
+            InitializeComponent();
+            
             DataGrid1.ItemsSource = datas;
         }
 
