@@ -1,8 +1,13 @@
 ﻿<Window x:Class="zad2.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Lukasz Swiderski Zad2" Height="350" Width="525">
     <Grid>
-        
+        <DataGrid Name="DataGrid1" Grid.Row="0" Grid.Column="0" ItemsSource="{Binding}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="dataLambda1" Binding="{Binding Lambda}" Header="Lambda" ></DataGridTextColumn>
+                <DataGridTextColumn x:Name="dataP1" Binding="{Binding P}" Header="1-P" ></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
