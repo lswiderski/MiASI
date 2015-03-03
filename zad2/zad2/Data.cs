@@ -10,11 +10,18 @@ namespace zad2
     {
         public int Lambda { get; set; }
         public double P { get; set; }
+        public double Pprim { get; set; }
 
-        public Data(int lambda, double p)
+        public Data(int lambda, double p, double pprim)
         {
             Lambda = lambda;
             P = p;
+            Pprim = pprim;
+        }
+
+        public Data()
+        {
+            
         }
     }
 }

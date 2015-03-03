@@ -8,33 +8,31 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>       
         </Grid.ColumnDefinitions>
-        <Label Name="tresc" Content="tresc" Grid.Row="0" Grid.ColumnSpan="2" />
+        <Label Name="tresc" Content="tresc" Grid.Row="0" Grid.ColumnSpan="3" />
         <DataGrid Name="DataGrid1" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="dataLambda1" Binding="{Binding Lambda}" Header="Lambda" ></DataGridTextColumn>
-                <DataGridTextColumn x:Name="dataP1" Binding="{Binding P}" Header="1-P" ></DataGridTextColumn>
+                <DataGridTextColumn x:Name="dataP1" Binding="{Binding P}" Header="P" ></DataGridTextColumn>
+                <DataGridTextColumn x:Name="dataPprim1" Binding="{Binding Pprim}" Header="1-P" ></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <sparrow:SparrowChart Grid.Row="2" Grid.Column="0" Theme="Rainbow" RenderingMode="GDIRendering" SmoothingMode="HighSpeed" CompositingMode="SourceCopy" CompositingQuality="HighSpeed" Margin="0,10,10,0">
+        <sparrow:SparrowChart  Grid.Row="1" Grid.Column="1" >
             <sparrow:SparrowChart.DataContext>
-                <zad2:MainWindow   />
+                <zad2:MainWindow/>
             </sparrow:SparrowChart.DataContext>
             <sparrow:SparrowChart.XAxis>
-                <sparrow:LinearXAxis Header="Lambda"/>
+                <sparrow:LinearXAxis/>
             </sparrow:SparrowChart.XAxis>
             <sparrow:SparrowChart.YAxis>
-                <sparrow:LinearYAxis Header="%"/>
+                <sparrow:LinearYAxis/>
             </sparrow:SparrowChart.YAxis>
-            <sparrow:SparrowChart.Legend>
-                <sparrow:Legend Header="Legenda"/>
-            </sparrow:SparrowChart.Legend>
-            <sparrow:LineSeries PointsSource="{Binding datas}" XPath="Lambda" YPath="P" Label="1-P"/>
+            <sparrow:LineSeries PointsSource="{Binding Datas}" XPath="Lambda" YPath="Pprim"/>
         </sparrow:SparrowChart>
     </Grid>
 </Window>

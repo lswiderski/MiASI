@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,24 +22,27 @@ namespace zad2
     /// </summary>
     public partial class MainWindow : Window
     {
-        public List<Data> datas { get; set; }
+        public static ObservableCollection<Data> Datas { get; set; }
         public MainWindow()
         {
-            datas = new List<Data>();
-            fillData();
+            //Datas = new ObservableCollection<Data>();
+            //FillData();
+            //Thread.Sleep(1000);
             InitializeComponent();
             
-            DataGrid1.ItemsSource = datas;
+           // DataGrid1.ItemsSource = Datas;
         }
 
-        public void fillData()
+        void FillData()
         {
             for (int i = 2; i <=16; i+=2)
             {
-                datas.Add(new Data(i,calcP(i,16)));
+                var p = CalcP(i, 16);
+
+                Datas.Add(new Data(i,p,1-p));
             }
         }
-        public double calcP(int lambda, int kmax)
+        double CalcP(int lambda, int kmax)
         {
             double p=0;
             for (int k = 0; k <= kmax; k++)
