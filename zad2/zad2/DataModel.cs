@@ -22,7 +22,7 @@ namespace zad2
             {
                 var p = CalcP(i, 16);
 
-                Datas.Add(new Data(i, p, 1 - p));
+                Datas.Add(new Data(i, p*100, (1 - p)*100));
             }
         }
         double CalcP(int lambda, int kmax)

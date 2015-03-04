@@ -19,19 +19,20 @@ a 1-P*100% nie będzie. Narysować wykres. " Grid.Row="0" Grid.ColumnSpan="3" />
         <DataGrid Name="DataGrid1" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="dataLambda1" Binding="{Binding Lambda}" Header="Lambda" ></DataGridTextColumn>
-                <DataGridTextColumn x:Name="dataP1" Binding="{Binding P}" Header="P" ></DataGridTextColumn>
-                <DataGridTextColumn x:Name="dataPprim1" Binding="{Binding Pprim}" Header="1-P" ></DataGridTextColumn>
+                <DataGridTextColumn x:Name="dataP1" Binding="{Binding P}" Header="Obsluzone" ></DataGridTextColumn>
+                <DataGridTextColumn x:Name="dataPprim1" Binding="{Binding Pprim}" Header="W kolejce" ></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <sparrow:SparrowChart  Grid.Row="1" Grid.Column="1" Margin="10,10,10,10" Padding="5,5,5,5">
+        <sparrow:SparrowChart  Grid.Row="1" Grid.Column="1" Margin="10,10,10,10" Padding="5,5,5,5" Theme="Rainbow" >
             <sparrow:SparrowChart.DataContext>
                 <zad2:DataModel/>
             </sparrow:SparrowChart.DataContext>
             <sparrow:SparrowChart.XAxis>
-                <sparrow:LinearXAxis Header="Lambda"/>
+                <sparrow:LinearXAxis Header="Lambda" Interval="2" MinValue="0" MaxValue="17"/>
             </sparrow:SparrowChart.XAxis>
             <sparrow:SparrowChart.YAxis>
-                <sparrow:LinearYAxis Header="%" />
+                <sparrow:LinearYAxis Header="%" Interval="20" />
+                
             </sparrow:SparrowChart.YAxis>
             <sparrow:SparrowChart.Legend>
                 <sparrow:Legend Header="Legenda"/>
