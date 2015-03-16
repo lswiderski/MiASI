@@ -24,7 +24,9 @@ namespace zad3
         {
             InitializeComponent();
             new MM1Model();
+            new MMcModel();
             DataGrid1.ItemsSource = MM1Model.Datas;
+            DataGrid2.ItemsSource = MMcModel.Datas;
         }
     }
 }

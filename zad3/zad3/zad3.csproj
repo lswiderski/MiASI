@@ -72,6 +72,8 @@
   <ItemGroup>
     <Compile Include="MM1Data.cs" />
     <Compile Include="MM1Model.cs" />
+    <Compile Include="MMcData.cs" />
+    <Compile Include="MMcModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

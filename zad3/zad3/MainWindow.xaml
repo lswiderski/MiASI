@@ -15,8 +15,8 @@
                     <DataGrid Name="DataGrid1" Grid.Column="0" ItemsSource="{Binding}" AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn x:Name="dataLambda1" Binding="{Binding Lambda}" Header="Lambda" ></DataGridTextColumn>
-                            <DataGridTextColumn x:Name="dataP1" Binding="{Binding Obsluga}" Header="Obsluga" ></DataGridTextColumn>
-                            <DataGridTextColumn x:Name="dataPprim1" Binding="{Binding Strata}" Header="Strata" ></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="dataObsluga1" Binding="{Binding Obsluga}" Header="Obsluga" ></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="dataStrata1" Binding="{Binding Strata}" Header="Strata" ></DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                     <sparrow:SparrowChart  Grid.Column="1" Margin="10,10,10,10" Padding="5,5,5,5" Theme="Rainbow" >
@@ -39,7 +39,38 @@
                 </Grid>
             </TabItem>
             <TabItem Header="M/M/c">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Name="DataGrid2" Grid.Column="0" ItemsSource="{Binding}" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="dataLambda2" Binding="{Binding Lambda}" Header="Lambda" ></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="dataStrata" Binding="{Binding Strata}" Header="Strata" ></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="dataObsluga2" Binding="{Binding Obsluga}" Header="Obsluga" ></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="dataSrednia2" Binding="{Binding Srednia}" Header="Srednia" ></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <sparrow:SparrowChart  Grid.Column="1" Margin="10,10,10,10" Padding="5,5,5,5" Theme="Rainbow" >
+                        <sparrow:SparrowChart.DataContext>
+                            <zad3:MMcModel/>
+                        </sparrow:SparrowChart.DataContext>
+                        <sparrow:SparrowChart.XAxis>
+                            <sparrow:LinearXAxis Header="Lambda" Interval="2" MinValue="0" MaxValue="29"/>
+                        </sparrow:SparrowChart.XAxis>
+                        <sparrow:SparrowChart.YAxis>
+                            <sparrow:LinearYAxis Interval="0,1" />
+
+                        </sparrow:SparrowChart.YAxis>
+                        <sparrow:SparrowChart.Legend>
+                            <sparrow:Legend Header="Legenda"/>
+                        </sparrow:SparrowChart.Legend>
+                        <sparrow:ColumnSeries  PointsSource="{Binding Datas}" XPath="Lambda" YPath="Strata" Label="Strata"/>
+                        <sparrow:ColumnSeries PointsSource="{Binding Datas}" XPath="Lambda" YPath="Obsluga" Label="Obsluga"/>
+                        <sparrow:ColumnSeries  PointsSource="{Binding Datas}" XPath="Lambda" YPath="Srednia" Label="Srednia"/>
+                    </sparrow:SparrowChart>
+                </Grid>
             </TabItem>
         </TabControl>
 
