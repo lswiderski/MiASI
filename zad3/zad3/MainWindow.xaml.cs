@@ -23,6 +23,8 @@ namespace zad3
         public MainWindow()
         {
             InitializeComponent();
+            new MM1Model();
+            DataGrid1.ItemsSource = MM1Model.Datas;
         }
     }
 }
