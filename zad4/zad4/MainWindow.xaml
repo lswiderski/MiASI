@@ -3,6 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="zad4" Height="350" Width="525">
     <Grid>
-        
+        <DataGrid Name="DataGrid1" Grid.Column="0" ItemsSource="{Binding}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="dataLambda" Binding="{Binding X}" Header="Lambda" ></DataGridTextColumn>
+                <DataGridTextColumn x:Name="dataPstr" Binding="{Binding Pstr}" Header="Pstr" ></DataGridTextColumn>
+                <DataGridTextColumn x:Name="dataL" Binding="{Binding L}" Header="L" ></DataGridTextColumn>
+                <DataGridTextColumn x:Name="dataN" Binding="{Binding N}" Header="N" ></DataGridTextColumn>
+                <DataGridTextColumn x:Name="dataW" Binding="{Binding W}" Header="W" ></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
