@@ -22,7 +22,13 @@ namespace zad5
     {
         public MainWindow()
         {
+            Data data = new Data();
             InitializeComponent();
+            DataGridPi.ItemsSource = data.Stany;
+            DataGridV.ItemsSource = data.Datas;
+            DataGridL.ItemsSource = data.Datas;
+            DataGridW.ItemsSource = data.Datas;
+            DataGridBL.ItemsSource = data.Datas;
         }
     }
 }
