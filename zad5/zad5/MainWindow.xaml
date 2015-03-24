@@ -8,17 +8,17 @@
         <TabControl>
             <TabItem Header="Pi">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <DataGrid Name="DataGridPi" Grid.Column="0" ItemsSource="{Binding}" AutoGenerateColumns="False" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Name="DataGridPi" Grid.Column="0" ItemsSource="{Binding}" AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn  Binding="{Binding I}" Header="i" ></DataGridTextColumn>
                             <DataGridTextColumn Binding="{Binding P}" Header="Pi" ></DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <sparrow:SparrowChart  Grid.Row="1" Margin="10,10,10,10" Padding="5,5,5,5" Theme="Rainbow" >
+                    <sparrow:SparrowChart  Grid.Column="1" Margin="10,10,10,10" Padding="5,5,5,5" Theme="Rainbow" >
                         <sparrow:SparrowChart.DataContext>
                             <zad5:Data/>
                         </sparrow:SparrowChart.DataContext>
@@ -26,7 +26,7 @@
                             <sparrow:LinearXAxis Header="i" Interval="1" MinValue="0" MaxValue="16"/>
                         </sparrow:SparrowChart.XAxis>
                         <sparrow:SparrowChart.YAxis>
-                            <sparrow:LinearYAxis />
+                            <sparrow:LinearYAxis Interval="0,05" MinValue="0" MaxValue="0,2" />
 
                         </sparrow:SparrowChart.YAxis>
                         <sparrow:SparrowChart.Legend>
@@ -38,17 +38,17 @@
             </TabItem>
             <TabItem Header="V">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
                     <DataGrid Name="DataGridV" Grid.Column="0" ItemsSource="{Binding}" AutoGenerateColumns="False" Grid.Row="0">
                         <DataGrid.Columns>
                             <DataGridTextColumn  Binding="{Binding Lambda}" Header="Lambda" ></DataGridTextColumn>
                             <DataGridTextColumn Binding="{Binding V}" Header="V" ></DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <sparrow:SparrowChart  Grid.Row="1" Margin="10,10,10,10" Padding="5,5,5,5" Theme="Rainbow" >
+                    <sparrow:SparrowChart  Grid.Column="1" Margin="10,10,10,10" Padding="5,5,5,5" Theme="Rainbow" >
                         <sparrow:SparrowChart.DataContext>
                             <zad5:Data/>
                         </sparrow:SparrowChart.DataContext>
@@ -56,29 +56,29 @@
                             <sparrow:LinearXAxis Header="Lambda" Interval="1" MinValue="0" MaxValue="9"/>
                         </sparrow:SparrowChart.XAxis>
                         <sparrow:SparrowChart.YAxis>
-                            <sparrow:LinearYAxis />
+                            <sparrow:LinearYAxis Interval="1,5" MinValue="0" MaxValue="9"/>
 
                         </sparrow:SparrowChart.YAxis>
                         <sparrow:SparrowChart.Legend>
                             <sparrow:Legend Header="Legenda"/>
                         </sparrow:SparrowChart.Legend>
-                        <sparrow:ColumnSeries PointsSource="{Binding Datas}" XPath="Lambda" YPath="V" Label="V"/>
+                        <sparrow:ColumnSeries PointsSource="{Binding Datas}" XPath="Lambda" YPath="V" Label="średnia liczba zadań w kolejce"/>
                     </sparrow:SparrowChart>
                 </Grid>
             </TabItem>
             <TabItem Header="L">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
                     <DataGrid Name="DataGridL" Grid.Column="0" ItemsSource="{Binding}" AutoGenerateColumns="False" Grid.Row="0">
                         <DataGrid.Columns>
                             <DataGridTextColumn  Binding="{Binding Lambda}" Header="Lambda" ></DataGridTextColumn>
                             <DataGridTextColumn Binding="{Binding L}" Header="L" ></DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <sparrow:SparrowChart  Grid.Row="1"  Margin="10,10,10,10" Padding="5,5,5,5" Theme="Rainbow" >
+                    <sparrow:SparrowChart  Grid.Column="1"  Margin="10,10,10,10" Padding="5,5,5,5" Theme="Rainbow" >
                         <sparrow:SparrowChart.DataContext>
                             <zad5:Data/>
                         </sparrow:SparrowChart.DataContext>
@@ -86,29 +86,29 @@
                             <sparrow:LinearXAxis Header="Lambda" Interval="1" MinValue="0" MaxValue="9"/>
                         </sparrow:SparrowChart.XAxis>
                         <sparrow:SparrowChart.YAxis>
-                            <sparrow:LinearYAxis />
+                            <sparrow:LinearYAxis Interval="0,5" MinValue="0" MaxValue="3,5" />
 
                         </sparrow:SparrowChart.YAxis>
                         <sparrow:SparrowChart.Legend>
                             <sparrow:Legend Header="Legenda"/>
                         </sparrow:SparrowChart.Legend>
-                        <sparrow:ColumnSeries PointsSource="{Binding Datas}" XPath="Lambda" YPath="L" Label="L"/>
+                        <sparrow:ColumnSeries PointsSource="{Binding Datas}" XPath="Lambda" YPath="L" Label="średnia liczba zadań w kolejce"/>
                     </sparrow:SparrowChart>
                 </Grid>
             </TabItem>
             <TabItem Header="W">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
                     <DataGrid Name="DataGridW" Grid.Column="0" ItemsSource="{Binding}" AutoGenerateColumns="False" Grid.Row="0">
                         <DataGrid.Columns>
                             <DataGridTextColumn  Binding="{Binding Lambda}" Header="Lambda" ></DataGridTextColumn>
                             <DataGridTextColumn Binding="{Binding W}" Header="W" ></DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <sparrow:SparrowChart  Grid.Row="1" Margin="10,10,10,10" Padding="5,5,5,5" Theme="Rainbow" >
+                    <sparrow:SparrowChart  Grid.Column="1" Margin="10,10,10,10" Padding="5,5,5,5" Theme="Rainbow" >
                         <sparrow:SparrowChart.DataContext>
                             <zad5:Data/>
                         </sparrow:SparrowChart.DataContext>
@@ -116,29 +116,29 @@
                             <sparrow:LinearXAxis Header="Lambda" Interval="1" MinValue="0" MaxValue="9"/>
                         </sparrow:SparrowChart.XAxis>
                         <sparrow:SparrowChart.YAxis>
-                            <sparrow:LinearYAxis />
+                            <sparrow:LinearYAxis Interval="0,1" MinValue="0" MaxValue="0,3" />
 
                         </sparrow:SparrowChart.YAxis>
                         <sparrow:SparrowChart.Legend>
                             <sparrow:Legend Header="Legenda"/>
                         </sparrow:SparrowChart.Legend>
-                        <sparrow:ColumnSeries PointsSource="{Binding Datas}" XPath="Lambda" YPath="W" Label="W"/>
+                        <sparrow:ColumnSeries PointsSource="{Binding Datas}" XPath="Lambda" YPath="W" Label="średni czas oczekiwania w kolejce"/>
                     </sparrow:SparrowChart>
                 </Grid>
             </TabItem>
-            <TabItem Header="BigLambda">
+            <TabItem Header="λ'">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
                     <DataGrid Name="DataGridBL" Grid.Column="0" ItemsSource="{Binding}" AutoGenerateColumns="False" Grid.Row="0">
                         <DataGrid.Columns>
                             <DataGridTextColumn  Binding="{Binding Lambda}" Header="Lambda" ></DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding BigLambda}" Header="BigLambda" ></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding BigLambda}" Header="λ'" ></DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <sparrow:SparrowChart  Grid.Row="1" Margin="10,10,10,10" Padding="5,5,5,5" Theme="Rainbow" >
+                    <sparrow:SparrowChart  Grid.Column="1" Margin="10,10,10,10" Padding="5,5,5,5" Theme="Rainbow" >
                         <sparrow:SparrowChart.DataContext>
                             <zad5:Data/>
                         </sparrow:SparrowChart.DataContext>
@@ -146,13 +146,13 @@
                             <sparrow:LinearXAxis Header="Lambda" Interval="1" MinValue="0" MaxValue="9"/>
                         </sparrow:SparrowChart.XAxis>
                         <sparrow:SparrowChart.YAxis>
-                            <sparrow:LinearYAxis />
+                            <sparrow:LinearYAxis  Interval="5" MinValue="0" MaxValue="35"/>
 
                         </sparrow:SparrowChart.YAxis>
                         <sparrow:SparrowChart.Legend>
                             <sparrow:Legend Header="Legenda"/>
                         </sparrow:SparrowChart.Legend>
-                        <sparrow:ColumnSeries PointsSource="{Binding Datas}" XPath="Lambda" YPath="BigLambda" Label="BigLambda"/>
+                        <sparrow:ColumnSeries PointsSource="{Binding Datas}" XPath="Lambda" YPath="BigLambda" Label="średnia intensywność napływu zadań do węzła obsługi "/>
                     </sparrow:SparrowChart>
                 </Grid>
             </TabItem>
