@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,17 +11,14 @@ namespace zad4
     public class Elemten
     {
        public double X { get; set; }
-        public double Pstr { get; set; }
-        public double L { get; set; }
+        public double Pstrp { get; set; }
+        public double Lp { get; set; }
         public double N { get; set; }
         public double W { get; set; }
     }
     public class Data
     {
-        public List<Elemten> ListP { get; set; }
-        private List<Elemten> ListT { get; set; }
-        private List<Elemten> ListN { get; set; }
-        private List<Elemten> ListW { get; set; }
+        public ObservableCollection<Elemten> ListP { get; set; }
         private List<double> Lambda { get; set; }
 
         public Data()
@@ -33,10 +31,7 @@ namespace zad4
             }
 
 
-            ListP = new List<Elemten>();
-            ListT = new List<Elemten>();
-            ListN = new List<Elemten>();
-            ListW = new List<Elemten>();
+            ListP = new ObservableCollection<Elemten>();
 
 
             //Obliczenie M/M/1
@@ -45,28 +40,12 @@ namespace zad4
                 ListP.Add(new Elemten
                 {
                     X = item,
-                    Pstr = Pbl(item, 5, 4, 10),
-                    L= T(item, 5, 4, 10),
-                    N = N(item, 5, 4, 10),
-                    W = W(item, 5, 4, 10)
+                    Pstrp = Pstr(4, 10, 5,item,14),
+                    Lp = L(4, 10, 5, item),
+                    N = N(4, 10, 5, item),
+                    W = W(4, 10, 5, item)
                 }
                     );
-                //ListT.Add(new Elemten
-                //{
-                //    X = item,
-                //    L= T(item, 5, 4, 10)
-                //});
-                //ListN.Add(new Elemten
-                //{
-                //    X = item,
-                //    N = N(item, 5, 4, 10)
-                //});
-                //ListW.Add(new Elemten
-                //{
-                //    X = item,
-                //    W = W(item, 5, 4, 10)
-                //});
-
             }
         }
 
@@ -78,106 +57,99 @@ namespace zad4
         /// <summary>
         ///     Obliczenie Q
         /// </summary>
-        public double Q(double lambda, double mi, double i, double c, double m)
+        public double Q(double lambda, double mi, double c, double i)
         {
-            if (i != 0)
-            {
-                if (i <= c)
-                {
-                    return Math.Pow(RHO(lambda, mi), i)/Silnia(i);
+                             double q0;
+                if (i >= 0 && i <= c) {
+                q0 = Math.Pow(lambda, i) / (Silnia(i) * Math.Pow(mi, i));
+                 } else {
+                q0 = Math.Pow(lambda, i) / (Silnia(c) * Math.Pow(mi, i) * Math.Pow(c, i - c));
                 }
-                else if (i <= m + c && i > c + 1)
-                {
-                    return (Math.Pow(c, c)/Silnia(c))*Math.Pow((RHO(lambda, mi)/c), i);
-                }
-            }
-            else
-            {
-                return 1;
-            }
-            return lambda / mi;
+                 return q0;
+
         }
 
         /// <summary>
         ///     Obliczenie p
         /// </summary>
-        public double P(double lambda, double mi, double i, double c, double m)
-        {
-            var suma = 0.0;
-            for (int k = 0; k <=m+c; k++)
-            {
-                suma += Q(lambda, mi, k, c, m);
-            }
-
-            return Q(lambda, mi, i, c, m)/suma;
-        }
+        //public double P(double lambda, double mi, double i, double c, double m)
+        //{
+        //    var suma = 0.0;
+        //    for (int k = 0; k <=m+c; k++)
+        //    {
+        //        suma += Q(lambda, mi, k, c, m);
+        //    }
+        //
+        //    return Q(lambda, mi, i, c, m)/suma;
+        //}
 
         /// <summary>
         ///     prawdopodobieństwo straty zgłoszenia 
         /// </summary>
-        public double Pbl(double lambda, double mi, double c, double m)
-        {
-            return P(lambda, mi, m+c, c, m);
-        }
 
+        public double Pstr(double c, double m, double mi, double lambda, double x)
+        {
+            double p0 = 0;
+                if (x == -1) 
+                {
+                
+                    for (double k = 0; k <= c + m; k++)
+                    {
+                
+                        p0 = p0 + Q(lambda, mi, c, k);
+                
+                    }
+                    p0 = 1/p0;
+                return p0;
+                } 
+                else 
+                {
+                    return Pstr(c, m, mi, lambda, -1) * Q(lambda, mi, c, x);
+                }
+        }
         /// <summary>
         ///     średnia liczba zajętych stanowisk
         /// </summary>
-        public double T(double lambda, double mi, double c, double m)
+        public double L( double c, double m,double mi,double lambda )
         {
             var suma1 = 0.0;
             for (double k = 1; k <= c; k++)
             {
-                suma1 += k * P(lambda, mi, k, c, m);
+                suma1 += k * Pstr(c,m,mi,lambda,k);
             }
 
             var suma2 = 0.0;
             for (double k = c + 1; k <= m + c; k++)
             {
-                suma2 += c * P(lambda, mi, k, c, m);
+                suma2 += c * Pstr(c, m, mi, lambda, k);
             }
 
             return suma1 + suma2;
         }
-
-        /// <summary>
-        ///     średnia liczbę zgłoszeń w systemie (kolejka + stanowisko obsługi)
-        /// </summary>
-        public double N(double lambda, double mi, double c, double m)
+        public double N( double c, double m, double mi,double lambda )
         {
-
-            var suma1 = 0.0;
-            for (double k = 1; k <= c; k++)
-            {
-                suma1 += Math.Pow(RHO(lambda, mi),k)/Silnia(k-1);
-            }
-
-            var suma2 = 0.0;
-            for (double k = c + 1; k <= m + c; k++)
-            {
-                suma2 += Math.Pow((RHO(lambda, mi)/c),k);
-            }
-
-            suma2 = suma2*(Math.Pow(c, c)/Silnia(c));
-
-            return P(lambda, mi, 0, c, m)*(suma1 + suma2);
+            double suma = 0;
+            suma = L(c, m, mi, lambda) + V(c, m, mi, lambda);
+            return suma;
         }
 
-        /// <summary>
-        ///     średnia liczbę zgłoszeń w systemie (kolejka + stanowisko obsługi)
-        /// </summary>
-        public double W(double lambda, double mi, double c, double m)
+        public double W(  double c, double m,double mi,double lambda)
         {
 
-            var suma1 = 0.0;
-            for (double k = 1; k <= m; k++)
+            double suma = 0;
+            suma = V(c, m, mi, lambda)/lambda;
+            return suma;
+        }
+
+        public double V( double c, double m, double mi,double lambda)
+        {
+
+            double suma = 0;
+            for (int i = 1; i <= m; i++)
             {
-                suma1 +=  k * Math.Pow((RHO(lambda, mi) / c), k-1);
+                suma = suma + (i*Pstr(c,m,mi,lambda,c+1));
             }
-
-
-
-            return P(lambda, mi, 0, c, m) * (Math.Pow(c, c) / (Silnia(c) * c)) * (1 / m) * Math.Pow((RHO(lambda, mi) / c), c) * suma1;
+            return suma;
         }
 
 

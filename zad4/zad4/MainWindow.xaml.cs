@@ -22,6 +22,8 @@ namespace zad4
     {
         public MainWindow()
         {
+            
+            
             InitializeComponent();
             Data data = new Data();
             DataGrid1.ItemsSource = data.ListP;
