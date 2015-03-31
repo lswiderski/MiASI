@@ -9,53 +9,39 @@ namespace zad6
 {
     public class Element
     {
-        public int Lambda { get; set; }
-        public double V { get; set; }
-        public double L { get; set; }
+        public double Lambda { get; set; }
+        public double Pbl { get; set; }
+        public double Nbl { get; set; }
+        public double Tbl { get; set; }
         public double W { get; set; }
         public double BigLambda { get; set; }
     }
 
-    public class Pi
-    {
-        public int I { get; set; }
-        public double P { get; set; }
-    }
     public class Data
     {
         public ObservableCollection<Element> Datas { get; set; }
-        public ObservableCollection<Pi> Stany { get; set; }
-        public List<int> Lambdas { get; set; }
+        public List<float> Lambdas { get; set; }
 
         public Data()
         {
             Datas = new ObservableCollection<Element>();
-            Stany = new ObservableCollection<Pi>();
-            Lambdas = new List<int>();
-            int c = 3;
+            Lambdas = new List<float>();
+            int m = 5;
             int N = 15;
-            int mi = 10;
-            for (int i = 1; i < 9; i++)
+            int mi = 4;
+            for (float i = 0.15f; i < 1.21; i += 0.15f)
             {
                 Lambdas.Add(i);
                 Datas.Add(new Element()
                 {
                     Lambda = i,
-                    BigLambda = lambda(c, N, mi, i),
-                    L = l(c, N, mi, i),
-                    V = v(c, N, mi, i),
-                    W = w(c,N,mi,i)
+                    BigLambda = Lambda(N, m, mi, i),
+                    Nbl = nbl(N, m, mi, i),
+                    Pbl = pbl(N, m, mi, i),
+                    Tbl = tbl(N,m,mi,i),
+                    W = w(N,m,mi,i)
                 });
 
-            }
-            for (int i = 1; i <= N; i++)
-            {
-                Stany.Add(new Pi()
-                {
-                    I = i,
-                    P = p(c, N, mi, i, 6)
-
-                });
             }
 
 
@@ -73,88 +59,61 @@ namespace zad6
             }
 
         }
-        public static double q(double c, double N, double mi, double i, double lambda)
+        public static double p0(double N, double m, double mi, double lambda)
         {
-            double q = 0;
-            if (i >= 0 && i <= c)
+            double suma = 0;
+            double p0 = 0;
+            for (double k = 0; k <= m + 2; k++)
             {
-                q = silnia(N) / (silnia(N - i) * silnia(i)) * Math.Pow(lambda / mi, i);
-
+                suma = suma + ((Math.Pow(lambda / mi, k)) / silnia(N - k));
             }
-            if (i >= c + 1 && i <= N)
-            {
-                q = ((Math.Pow(c, c) * silnia(N)) / (silnia(N - i) * silnia(c))) * Math.Pow(lambda / mi / c, i);
-            }
-            return q;
+            p0 = Math.Pow(silnia(N) * suma, -1);
+            return p0;
         }
-
-
-        public static double p(double c, double N, double mi, double i, double lambda)
+        public static double v(double N, double m, double mi, double lambda)
         {
-            if (i == -1)
+            double v = 0;
+            double suma = 0;
+            for (double k = 2; k <= m + 1; k++)
             {
-                double p = 0;
-                for (double k = 0; k <= N; k++)
-                {
-                    p = p + q(c, N, mi, k, lambda);
-                }
-                return 1 / p;
+                suma = suma + (((k - 1) * silnia(N)) / silnia(N - k)) * Math.Pow(lambda / mi,
+               k);
             }
-            else
-            {
-                return p(c, N, mi, -1, lambda) * q(c, N, mi, i, lambda);
-            }
+            v = p0(N, m, mi, lambda) * (suma + (m * (silnia(N) / (silnia(N - m -
+           2))) * Math.Pow(lambda / mi, m + 2)));
+            return v;
         }
-
-        public static double v(double c, double N, double mi, double lambda)
+        public static double Lambda(double N, double m, double mi, double lambda)
         {
-            double v_ = 0;
-            for (double i = c + 1; i <= N; i++)
-            {
-                v_ = v_ + ((i - c) * p(c, N, mi, i, lambda));
-            }
-            return v_;
-        }
-        public static double n(double c, double N, double mi, double lambda)
-        {
-            double n_ = 0;
-            for (double i = c + 1; i <= N; i++)
-            {
-                n_ = n_ + ((i - c) * p(c, N, mi, i, lambda));
-            }
-            for (int i = 1; i <= c; i++)
-            {
-                n_ = n_ + (i * p(c, N, mi, i, lambda));
-            }
-            for (int i = (int)(c + 1); i <= N; i++)
-            {
-                n_ = n_ + (c * p(c, N, mi, i, lambda));
-            }
-            return n_;
-        }
-        public static double l(double c, double N, double mi, double lambda)
-        {
+            double suma = 0;
             double l = 0;
-            for (int i = 1; i <= c; i++)
+            for (double k = 0; k <= m + 1; k++)
             {
-                l = l + (i * p(c, N, mi, i, lambda));
+                suma = suma + ((lambda / silnia(N - k - 1)) * Math.Pow(lambda / mi, k));
             }
-            for (int i = (int)(c + 1); i <= N; i++)
-            {
-                l = l + (c * p(c, N, mi, i, lambda));
-            }
+            l = p0(N, m, mi, lambda) * silnia(N) * suma;
             return l;
         }
-        public static double lambda(double c, double N, double mi, double lambda)
+        public static double pbl(double N, double m, double mi, double lambda)
         {
-            double l = 0;
-            l = lambda * (N - n(c, N, mi, lambda));
-            return l;
+            double pbl = p0(N, m, mi, lambda) * (silnia(N) / silnia(N - m - 2
+            )) * Math.Pow(lambda / mi, m + 2);
+            return pbl;
+        }
+        public static double nbl(double N, double m, double mi, double lambda)
+        {
+            double nbl = (N - m - 1) * p0(N, m, mi, lambda) * (silnia(N) / (silnia(N - m -
+           2))) * Math.Pow(lambda / mi, m + 2);
+            return nbl;
         }
 
-        public static double w(double c, double N, double mi, double _lambda)
+        public static double w(double N, double m, double mi, double lambda)
         {
-            return v(c, N, mi, _lambda) / lambda(c, N, mi, _lambda);
+            return v(N, m, mi, lambda) / Lambda(N, m, mi, lambda);
+        }
+        public static double tbl(double N, double m, double mi, double lambda)
+        {
+            return nbl(N, m, mi, lambda) / Lambda(N, m, mi, lambda);
         }
 
     }

@@ -24,9 +24,9 @@ namespace zad6
         {
             Data data = new Data();
             InitializeComponent();
-            DataGridPi.ItemsSource = data.Stany;
-            DataGridV.ItemsSource = data.Datas;
-            DataGridL.ItemsSource = data.Datas;
+            DataGridPbl.ItemsSource = data.Datas;
+            DataGridNbl.ItemsSource = data.Datas;
+            DataGridTbl.ItemsSource = data.Datas;
             DataGridW.ItemsSource = data.Datas;
             DataGridBL.ItemsSource = data.Datas;
         }
