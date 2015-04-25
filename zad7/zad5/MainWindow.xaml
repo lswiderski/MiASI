@@ -1,0 +1,162 @@
+﻿<Window x:Class="zad6.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:sparrow="http://sparrowtoolkit.codeplex.com/wpf"
+        xmlns:zad6="clr-namespace:zad6"
+        Title="Zad 6" Height="350" Width="525">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Pbl">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Name="DataGridPbl" Grid.Column="0" ItemsSource="{Binding}" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn  Binding="{Binding Lambda, StringFormat=F2}" Header="Lambda"  ></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Pbl}" Header="Pbl" ></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <sparrow:SparrowChart  Grid.Column="1" Margin="10,10,10,10" Padding="5,5,5,5" Theme="Rainbow" >
+                        <sparrow:SparrowChart.DataContext>
+                            <zad6:Data/>
+                        </sparrow:SparrowChart.DataContext>
+                        <sparrow:SparrowChart.XAxis>
+                            <sparrow:LinearXAxis Header="Lambda" Interval="0,15" MinValue="0" MaxValue="1,3"/>
+                        </sparrow:SparrowChart.XAxis>
+                        <sparrow:SparrowChart.YAxis>
+                            <sparrow:LinearYAxis  Interval="0,15" MinValue="0" MaxValue="0,75"/>
+
+                        </sparrow:SparrowChart.YAxis>
+                        <sparrow:SparrowChart.Legend>
+                            <sparrow:Legend Header="Legenda"/>
+                        </sparrow:SparrowChart.Legend>
+                        <sparrow:SplineSeries PointsSource="{Binding Datas}" XPath="Lambda" YPath="Pbl" Label="prawdopodobieństwo blokady zadań w źródłach"/>
+                    </sparrow:SparrowChart>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Nbl">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Name="DataGridNbl" Grid.Column="0" ItemsSource="{Binding}" AutoGenerateColumns="False" Grid.Row="0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn  Binding="{Binding Lambda, StringFormat=F2}" Header="Lambda" ></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Nbl}" Header="Nbl" ></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <sparrow:SparrowChart  Grid.Column="1" Margin="10,10,10,10" Padding="5,5,5,5" Theme="Rainbow" >
+                        <sparrow:SparrowChart.DataContext>
+                            <zad6:Data/>
+                        </sparrow:SparrowChart.DataContext>
+                        <sparrow:SparrowChart.XAxis>
+                            <sparrow:LinearXAxis Header="Lambda" Interval="0,15" MinValue="0" MaxValue="1,3"/>
+                        </sparrow:SparrowChart.XAxis>
+                        <sparrow:SparrowChart.YAxis>
+                            <sparrow:LinearYAxis  Interval="1" MinValue="0" MaxValue="6" />
+
+                        </sparrow:SparrowChart.YAxis>
+                        <sparrow:SparrowChart.Legend>
+                            <sparrow:Legend Header="Legenda"/>
+                        </sparrow:SparrowChart.Legend>
+                        <sparrow:SplineSeries PointsSource="{Binding Datas}" XPath="Lambda" YPath="Nbl" Label="średnia liczba zablokowanych zadań"/>
+                    </sparrow:SparrowChart>
+                </Grid>
+            </TabItem>
+            <TabItem Header="λ'">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Name="DataGridBL" Grid.Column="0" ItemsSource="{Binding}" AutoGenerateColumns="False" Grid.Row="0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn  Binding="{Binding Lambda, StringFormat=F2}" Header="Lambda" ></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding BigLambda}" Header="λ'" ></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                     <sparrow:SparrowChart  Grid.Column="1" Margin="10,10,10,10" Padding="5,5,5,5" Theme="Rainbow" >
+                        <sparrow:SparrowChart.DataContext>
+                            <zad6:Data/>
+                        </sparrow:SparrowChart.DataContext>
+                        <sparrow:SparrowChart.XAxis>
+                            <sparrow:LinearXAxis Header="Lambda" Interval="0,15" MinValue="0" MaxValue="1,3"/>
+                        </sparrow:SparrowChart.XAxis>
+                        <sparrow:SparrowChart.YAxis>
+                            <sparrow:LinearYAxis  Interval="1" MinValue="0" MaxValue="5" />
+
+                        </sparrow:SparrowChart.YAxis>
+                        <sparrow:SparrowChart.Legend>
+                            <sparrow:Legend Header="Legenda"/>
+                        </sparrow:SparrowChart.Legend>
+                        <sparrow:SplineSeries PointsSource="{Binding Datas}" XPath="Lambda" YPath="BigLambda" Label="średnia intensywność napływu zadań do węzła obsługi "/>
+                    </sparrow:SparrowChart>
+                </Grid>
+            </TabItem>
+            <TabItem Header="W">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Name="DataGridW" Grid.Column="0" ItemsSource="{Binding}" AutoGenerateColumns="False" Grid.Row="0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn  Binding="{Binding Lambda, StringFormat=F2}" Header="Lambda" ></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding W}" Header="W" ></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <sparrow:SparrowChart  Grid.Column="1" Margin="10,10,10,10" Padding="5,5,5,5" Theme="Rainbow" >
+                        <sparrow:SparrowChart.DataContext>
+                            <zad6:Data/>
+                        </sparrow:SparrowChart.DataContext>
+                        <sparrow:SparrowChart.XAxis>
+                            <sparrow:LinearXAxis Header="Lambda" Interval="0,15" MinValue="0" MaxValue="1,3"/>
+                        </sparrow:SparrowChart.XAxis>
+                        <sparrow:SparrowChart.YAxis>
+                            <sparrow:LinearYAxis  Interval="0,15" MinValue="0" MaxValue="1,33" />
+
+                        </sparrow:SparrowChart.YAxis>
+                        <sparrow:SparrowChart.Legend>
+                            <sparrow:Legend Header="Legenda"/>
+                        </sparrow:SparrowChart.Legend>
+                        <sparrow:SplineSeries PointsSource="{Binding Datas}" XPath="Lambda" YPath="W" Label="średni czas oczekiwania zadań w kolejce"/>
+                    </sparrow:SparrowChart>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Tbl">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Name="DataGridTbl" Grid.Column="0" ItemsSource="{Binding}" AutoGenerateColumns="False" Grid.Row="0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn  Binding="{Binding Lambda, StringFormat=F2}" Header="Lambda" ></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Tbl}" Header="Tbl" ></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <sparrow:SparrowChart  Grid.Column="1"  Margin="10,10,10,10" Padding="5,5,5,5" Theme="Rainbow" >
+                        <sparrow:SparrowChart.DataContext>
+                            <zad6:Data/>
+                        </sparrow:SparrowChart.DataContext>
+                        <sparrow:SparrowChart.XAxis>
+                            <sparrow:LinearXAxis Header="Lambda" Interval="0,15" MinValue="0" MaxValue="1,3"/>
+                        </sparrow:SparrowChart.XAxis>
+                        <sparrow:SparrowChart.YAxis>
+                            <sparrow:LinearYAxis   Interval="0,25" MinValue="0" MaxValue="1,5" />
+
+                        </sparrow:SparrowChart.YAxis>
+                        <sparrow:SparrowChart.Legend>
+                            <sparrow:Legend Header="Legenda"/>
+                        </sparrow:SparrowChart.Legend>
+                        <sparrow:SplineSeries PointsSource="{Binding Datas}" XPath="Lambda" YPath="Tbl" Label="średnia czas blokady zadań w źródłach"/>
+                    </sparrow:SparrowChart>
+                </Grid>
+            </TabItem>
+        </TabControl>
+       
+    </Grid>
+</Window>
