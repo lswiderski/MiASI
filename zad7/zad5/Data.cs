@@ -10,36 +10,45 @@ namespace zad6
     public class Element
     {
         public double Lambda { get; set; }
-        public double Pbl { get; set; }
-        public double Nbl { get; set; }
-        public double Tbl { get; set; }
-        public double W { get; set; }
-        public double BigLambda { get; set; }
+        public double P0 { get; set; }
+        public double Pstr2 { get; set; }
+        public double Pstr1 { get; set; }
+        public double Pt { get; set; }
+        public double Pl { get; set; }
+        public double Pstr { get; set; }
     }
 
     public class Data
     {
         public ObservableCollection<Element> Datas { get; set; }
-        public List<float> Lambdas { get; set; }
+        public List<int> Lambdas { get; set; }
+        public List<int> Lambda1 { get; set; }
+        public List<int> Lambda2 { get; set; }
 
         public Data()
         {
             Datas = new ObservableCollection<Element>();
-            Lambdas = new List<float>();
-            int m = 5;
-            int N = 15;
-            int mi = 4;
-            for (float i = 0.15f; i < 1.21; i += 0.15f)
+            Lambdas = new List<int>();
+            Lambda1 = new List<int>();
+            Lambda2 = new List<int>();
+            int c = 3;
+            int m1 = 6;
+            int m = 10;
+            int mi = 10;
+            for (int i = 2, j=4; i <=14; i += 2, j+=4)
             {
-                Lambdas.Add(i);
+                Lambda1.Add(i);
+                Lambda2.Add(j);
+                Lambdas.Add(i+j);
                 Datas.Add(new Element()
                 {
-                    Lambda = i,
-                    BigLambda = Lambda(N, m, mi, i),
-                    Nbl = nbl(N, m, mi, i),
-                    Pbl = pbl(N, m, mi, i),
-                    Tbl = tbl(N,m,mi,i),
-                    W = w(N,m,mi,i)
+                    Lambda = i+j,
+                    P0 = P0(Q(i,j,mi),Q2(j,mi),c,m1,m),
+                    Pstr2 = Pstr2(Q(i, j, mi), Q2(j, mi), c, m1, m),
+                    Pstr1 = Pstr1(Q(i, j, mi), Q2(j, mi), c, m1, m),
+                    Pstr = Pstr(Q(i, j, mi), Q2(j, mi), Q1(i,mi), c, m1, m),
+                    Pl = Pl(Q(i, j, mi), Q2(j, mi), Q1(i, mi), c, m1, m),
+                    Pt = Pt(Q(i, j, mi), Q2(j, mi),  c, m1, m)
                 });
 
             }
@@ -59,62 +68,92 @@ namespace zad6
             }
 
         }
-        public static double p0(double N, double m, double mi, double lambda)
+
+        public static double Q(int lambda1, int lambda2, int mi)
         {
-            double suma = 0;
-            double p0 = 0;
-            for (double k = 0; k <= m + 2; k++)
-            {
-                suma = suma + ((Math.Pow(lambda / mi, k)) / silnia(N - k));
-            }
-            p0 = Math.Pow(silnia(N) * suma, -1);
-            return p0;
+            return ((lambda1+lambda2)/(double)mi);
         }
-        public static double v(double N, double m, double mi, double lambda)
+        public static double Q2(int lambda2, int mi)
         {
-            double v = 0;
-            double suma = 0;
-            for (double k = 2; k <= m + 1; k++)
-            {
-                suma = suma + (((k - 1) * silnia(N)) / silnia(N - k)) * Math.Pow(lambda / mi,
-               k);
-            }
-            v = p0(N, m, mi, lambda) * (suma + (m * (silnia(N) / (silnia(N - m -
-           2))) * Math.Pow(lambda / mi, m + 2)));
-            return v;
+            return Q1(lambda2, mi);
         }
-        public static double Lambda(double N, double m, double mi, double lambda)
+        public static double Q1(int lambda1, int mi)
         {
-            double suma = 0;
-            double l = 0;
-            for (double k = 0; k <= m + 1; k++)
-            {
-                suma = suma + ((lambda / silnia(N - k - 1)) * Math.Pow(lambda / mi, k));
-            }
-            l = p0(N, m, mi, lambda) * silnia(N) * suma;
-            return l;
-        }
-        public static double pbl(double N, double m, double mi, double lambda)
-        {
-            double pbl = p0(N, m, mi, lambda) * (silnia(N) / silnia(N - m - 2
-            )) * Math.Pow(lambda / mi, m + 2);
-            return pbl;
-        }
-        public static double nbl(double N, double m, double mi, double lambda)
-        {
-            double nbl = (N - m - 1) * p0(N, m, mi, lambda) * (silnia(N) / (silnia(N - m -
-           2))) * Math.Pow(lambda / mi, m + 2);
-            return nbl;
+            return (lambda1 / (double)mi);
         }
 
-        public static double w(double N, double m, double mi, double lambda)
+        public static double SumC(double q, int c)
         {
-            return v(N, m, mi, lambda) / Lambda(N, m, mi, lambda);
-        }
-        public static double tbl(double N, double m, double mi, double lambda)
-        {
-            return nbl(N, m, mi, lambda) / Lambda(N, m, mi, lambda);
+            double result = 0.0d;
+            for (int i = 0; i <= c-1; i++)
+            {
+                var tmp1 = Math.Pow(q, i);
+                var tmp2 = silnia(i);
+                var x =tmp1/tmp2;
+                result += x;
+            }
+            return result;
         }
 
+        public static double SumM1(double q, int c, int m1)
+        {
+            double result = 0.0d;
+            for (int i = 0; i <= m1 - 1; i++)
+            {
+                result += Math.Pow((q/c), i);
+            }
+            return result;
+        }
+        public static double SumMM1(double q2, int c, int m1, int m)
+        {
+            double result = 0.0d;
+            for (int i = 0; i <= m-m1; i++)
+            {
+                result += Math.Pow(q2/c,i);
+            }
+            return result;
+        }
+        public static double QdoCprzezCSilnia(double q, int c)
+        {
+            return Math.Pow(q, c)/silnia(c);
+        }
+        public static double QprzezCdoM1(double q, int c, int m1)
+        {
+            return Math.Pow(q/c, m1);
+        }
+        public static double Q2przezCdoMM1(double q2, int c, int m1, int m)
+        {
+            return Math.Pow(q2 / c, m-m1);
+        }
+        public static double P0(double q, double q2,int c, int m1, int m)
+        {
+            var result =
+                Math.Pow(
+                    SumC(q, c) +
+                    (QdoCprzezCSilnia(q, c)*((SumM1(q, c, m1) + (QprzezCdoM1(q, c, m1)*SumMM1(q2, c, m1, m))))), -1);
+            return result;
+        }
+
+        public static double Pstr2(double q, double q2, int c, int m1, int m)
+        {
+            return P0(q, q2, c, m1, m)*QdoCprzezCSilnia(q, c)*QprzezCdoM1(q, c, m1)*Q2przezCdoMM1(q2, c, m1, m);
+        }
+        public static double Pstr1(double q, double q2, int c, int m1, int m)
+        {
+            return P0(q, q2, c, m1, m) * QdoCprzezCSilnia(q, c) * QprzezCdoM1(q, c, m1) * SumMM1(q2,c,m1,m);
+        }
+        public static double Pt(double q, double q2, int c, int m1, int m)
+        {
+            return Pstr2(q, q2, c, m1, m)*(q2/q);
+        }
+        public static double Pl(double q, double q2, double q1, int c, int m1, int m)
+        {
+            return Pstr1(q, q2, c, m1, m) * (q1 / q);
+        }
+
+        public static double Pstr(double q, double q2, double q1, int c, int m1, int m)
+        {
+            return Pt(q, q2, c, m1, m) + Pl(q, q2, q1, c, m1, m);
+        }
     }
 }
