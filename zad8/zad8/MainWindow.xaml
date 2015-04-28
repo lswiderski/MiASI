@@ -1,0 +1,138 @@
+﻿<Window x:Class="zad8.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          xmlns:sparrow="http://sparrowtoolkit.codeplex.com/wpf"
+          xmlns:zad8="clr-namespace:zad8"
+          Title="zad8" Height="350" Width="525">
+    <Grid>
+        <TabControl>
+            <TabItem Header="N - średnia liczba zgłoszeń w systemie">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <DataGrid Name="DataGridN" Grid.Row="0" ItemsSource="{Binding}" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn  Binding="{Binding Lambda}" Header="Lambda"  ></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding MM1}" Header="MM1" ></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding MD1}" Header="MD1" ></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Sigma1}" Header="Sigma1" ></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Sigma2}" Header="Sigma2" ></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Sigma3}" Header="Sigma3" ></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <sparrow:SparrowChart  Grid.Row="1" Margin="10,10,10,10" Padding="5,5,5,5" Theme="Rainbow" >
+                        <sparrow:SparrowChart.DataContext>
+                            <zad8:Data/>
+                        </sparrow:SparrowChart.DataContext>
+                        <sparrow:SparrowChart.XAxis>
+                            <sparrow:LinearXAxis Header="Lambda" Interval="1" MinValue="0" MaxValue="7"/>
+                        </sparrow:SparrowChart.XAxis>
+                        <sparrow:SparrowChart.YAxis>
+                            <sparrow:LinearYAxis Interval="1" MinValue="0" MaxValue="7"/>
+
+                        </sparrow:SparrowChart.YAxis>
+                        <sparrow:SparrowChart.Legend>
+                            <sparrow:Legend Header="Legenda"/>
+                        </sparrow:SparrowChart.Legend>
+                        <sparrow:SplineSeries PointsSource="{Binding DataN}" XPath="Lambda" YPath="MM1" Label="rozkład wykładniczy"/>
+                        <sparrow:SplineSeries PointsSource="{Binding DataN}" XPath="Lambda" YPath="MD1" Label="rozkład deterministyczny"/>
+                        <sparrow:SplineSeries PointsSource="{Binding DataN}" XPath="Lambda" YPath="Sigma1" Label="sigma = 0.9"/>
+                        <sparrow:SplineSeries PointsSource="{Binding DataN}" XPath="Lambda" YPath="Sigma2" Label="sigma = 0.6"/>
+                        <sparrow:SplineSeries PointsSource="{Binding DataN}" XPath="Lambda" YPath="Sigma3" Label="sigma = 0.3"/>
+                    </sparrow:SparrowChart>
+                </Grid>
+            </TabItem>
+            
+            <TabItem Header="V - średnia liczba zgłoszeń w kolejce">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <DataGrid Name="DataGridV" Grid.Row="0" ItemsSource="{Binding}" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn  Binding="{Binding Lambda}" Header="Lambda"  ></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding MM1}" Header="MM1" ></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding MD1}" Header="MD1" ></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Sigma1}" Header="Sigma1" ></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Sigma2}" Header="Sigma2" ></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Sigma3}" Header="Sigma3" ></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <sparrow:SparrowChart  Grid.Row="1" Margin="10,10,10,10" Padding="5,5,5,5" Theme="Rainbow" >
+                        <sparrow:SparrowChart.DataContext>
+                            <zad8:Data/>
+                        </sparrow:SparrowChart.DataContext>
+                        <sparrow:SparrowChart.XAxis>
+                            <sparrow:LinearXAxis Header="Lambda" Interval="1" MinValue="0" MaxValue="7"/>
+                        </sparrow:SparrowChart.XAxis>
+                        <sparrow:SparrowChart.YAxis>
+                            <sparrow:LinearYAxis Interval="1" MinValue="0" MaxValue="7"/>
+
+                        </sparrow:SparrowChart.YAxis>
+                        <sparrow:SparrowChart.Legend>
+                            <sparrow:Legend Header="Legenda"/>
+                        </sparrow:SparrowChart.Legend>
+                        <sparrow:SplineSeries PointsSource="{Binding DataV}" XPath="Lambda" YPath="MM1" Label="rozkład wykładniczy"/>
+                        <sparrow:SplineSeries PointsSource="{Binding DataV}" XPath="Lambda" YPath="MD1" Label="rozkład deterministyczny"/>
+                        <sparrow:SplineSeries PointsSource="{Binding DataV}" XPath="Lambda" YPath="Sigma1" Label="sigma = 0.9"/>
+                        <sparrow:SplineSeries PointsSource="{Binding DataV}" XPath="Lambda" YPath="Sigma2" Label="sigma = 0.6"/>
+                        <sparrow:SplineSeries PointsSource="{Binding DataV}" XPath="Lambda" YPath="Sigma3" Label="sigma = 0.3"/>
+                    </sparrow:SparrowChart>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="W - średni czas oczekiwania w kolejce">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                   <Label Name="czasW"></Label>
+                    <sparrow:SparrowChart  Grid.Row="1" Margin="10,10,10,10" Padding="5,5,5,5" Theme="Rainbow" >
+                        <sparrow:SparrowChart.DataContext>
+                            <zad8:Data/>
+                        </sparrow:SparrowChart.DataContext>
+                        <sparrow:SparrowChart.XAxis>
+                            <sparrow:LinearXAxis Interval="1" MinValue="0" MaxValue="5,5"/>
+                        </sparrow:SparrowChart.XAxis>
+                        <sparrow:SparrowChart.YAxis>
+                            <sparrow:LinearYAxis Interval="0,05" MinValue="0" MaxValue="0,4"/>
+
+                        </sparrow:SparrowChart.YAxis>
+                        <sparrow:SparrowChart.Legend>
+                            <sparrow:Legend Header="Legenda"/>
+                        </sparrow:SparrowChart.Legend>
+                        <sparrow:ColumnSeries Label="rozkład wykładniczy">
+                            <sparrow:ColumnSeries.Points >
+                                <sparrow:DoublePoint Data="1" Value="0.375" />
+                            </sparrow:ColumnSeries.Points>
+                        </sparrow:ColumnSeries>
+                        <sparrow:ColumnSeries Label="rozkład deterministyczny">
+                            <sparrow:ColumnSeries.Points >
+                                <sparrow:DoublePoint Data="2" Value="0.1875" />
+                            </sparrow:ColumnSeries.Points>
+                        </sparrow:ColumnSeries>
+                        <sparrow:ColumnSeries Label="sigma 0.9">
+                            <sparrow:ColumnSeries.Points >
+                                <sparrow:DoublePoint Data="3" Value="0.339" />
+                            </sparrow:ColumnSeries.Points>
+                        </sparrow:ColumnSeries>
+                        <sparrow:ColumnSeries Label="sigma 0.6">
+                            <sparrow:ColumnSeries.Points >
+                                <sparrow:DoublePoint Data="4" Value="0.255" />
+                            </sparrow:ColumnSeries.Points>
+                        </sparrow:ColumnSeries>
+                        <sparrow:ColumnSeries Label="sigma 0.3">
+                            <sparrow:ColumnSeries.Points >
+                                <sparrow:DoublePoint Data="5" Value="0.204" />
+                            </sparrow:ColumnSeries.Points>
+                        </sparrow:ColumnSeries>
+                    </sparrow:SparrowChart>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
